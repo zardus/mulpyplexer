@@ -1,6 +1,6 @@
 class MP(object):
     def __init__(self, items):
-        self.mp_items = items
+        super(MP, self).__setattr__('mp_items', items)
 
     @staticmethod
     def _resolve_object(a, n):
@@ -34,6 +34,11 @@ class MP(object):
         keys = self._expand(k)
         return MP([ getattr(i, k) for i,k in zip(self.mp_items,keys) ])
 
+    def __setattr__(self, k, v):
+        keys = self._expand(k)
+        values = self._expand(v)
+        return MP([ setattr(i, k, v) for i,k,v in zip(self.mp_items,keys,values) ])
+
     def __call__(self, *args, **kwargs):
         expanded_args, expanded_kwargs = self._expand(args), self._expand(kwargs)
         return MP([ i(*a, **k) for i,a,k in zip(self.mp_items,expanded_args,expanded_kwargs) ])
@@ -41,6 +46,11 @@ class MP(object):
     def __getitem__(self, k):
         keys = self._expand(k)
         return MP([ i[k] for i,k in zip(self.mp_items,keys) ])
+
+    def __setitem__(self, k, v):
+        keys = self._expand(k)
+        values = self._expand(v)
+        return MP([ i.__setitem__(k, v) for i,k,v in zip(self.mp_items,keys,values) ])
 
     def mp_len(self):
         return [ len(i) for i in self.mp_items ]
@@ -51,14 +61,15 @@ class MP(object):
 
 def test():
     class A:
-        def __init__(self, i):
+        def __init__(self, i, h=None):
             self.i = i
+            self.h = [] if h is None else h + [i]
 
         def add(self, j):
-            return A(self.i + (j.i if isinstance(j, A) else j))
+            return A(self.i + (j.i if isinstance(j, A) else j), self.h)
 
         def sub(self, j):
-            return A(self.i - (j.i if isinstance(j, A) else j))
+            return A(self.i - (j.i if isinstance(j, A) else j), self.h)
 
         def __repr__(self):
             return "<A %d>" % self.i
@@ -71,6 +82,11 @@ def test():
 
     one = MP([ A(10), A(20), A(30) ])
 
+    # test getattr
+    ga = one.i
+    assert ga.mp_items == [ 10, 20, 30 ]
+
+    # test call
     two = one.add(5)
     assert two.mp_items == [ A(15), A(25), A(35) ]
 
@@ -85,6 +101,12 @@ def test():
 
     six = four.i
     assert six.mp_items == [ 15, 35, 55 ]
+
+    # test setattr
+    four.i = one.add(5).i
+    assert four.i.mp_items == [ 15, 25, 35 ]
+
+    print "TESTS SUCCEEDED"
 
 if __name__ == '__main__':
     test()

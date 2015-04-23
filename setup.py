@@ -49,7 +49,7 @@ It's easier to show you:
     author_email='yans@yancomm.net',
     maintainer='Yan Shoshitaishvili',
     maintainer_email='yans@yancomm.net',
-    version='0.02',
+    version='0.03',
     license='GPL',
     py_modules=['mulpyplexer']
 )
