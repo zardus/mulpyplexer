@@ -47,7 +47,7 @@ class MP(object):
 
     def __dir__(self):
         attrs = frozenset.intersection(*[frozenset(dir(i)) for i in self.mp_items])
-        return list(sorted(attrs))
+        return list(sorted(attrs | { 'mp_items', 'mp_len' } ))
 
 def test():
     class A:
