@@ -55,6 +55,9 @@ class MP(object):
     def mp_len(self):
         return [ len(i) for i in self.mp_items ]
 
+    def mp_map(self, func):
+        return MP([ func(i) for i in self.mp_items ])
+
     def __dir__(self):
         attrs = frozenset.intersection(*[frozenset(dir(i)) for i in self.mp_items])
         return list(sorted(attrs | { 'mp_items', 'mp_len' } ))
