@@ -3,7 +3,7 @@
 Mulpyplexer is a piece of code that can multiplex interactions with lists of python objects.
 It's easier to show you:
 
-```
+```python
 import mulpyplexer
 
 class A:
