@@ -1,3 +1,4 @@
+import os
 from distutils.core import setup
 
 setup(
@@ -49,7 +50,7 @@ It's easier to show you:
     author_email='yans@yancomm.net',
     maintainer='Yan Shoshitaishvili',
     maintainer_email='yans@yancomm.net',
-    version='0.04',
+    version='0.05',
     license='GPL',
-    py_modules=['mulpyplexer']
+    py_modules=[os.path.join(os.path.dirname(__file__), 'mulpyplexer')]
 )
