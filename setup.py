@@ -52,5 +52,5 @@ It's easier to show you:
     maintainer_email='yans@yancomm.net',
     version='0.05',
     license='GPL',
-    py_modules=[os.path.join(os.path.dirname(__file__), 'mulpyplexer')]
+    py_modules=['mulpyplexer']
 )
