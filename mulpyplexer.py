@@ -126,7 +126,7 @@ def test():
     four.i = one.add(5).i
     assert four.i.mp_items == [ 15, 25, 35 ]
 
-    print "TESTS SUCCEEDED"
+    print ("TESTS SUCCEEDED")
 
 if __name__ == '__main__':
     test()
