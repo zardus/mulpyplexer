@@ -75,6 +75,9 @@ class MP(object):
                 items |= set(i)
         return MP(list(items))
 
+    def mp_sort(self, cmp=None, key=None, reverse=False): #pylint:disable=redefined-builtin
+        return MP(sorted(self.mp_items, cmp=cmp, key=key, reverse=reverse))
+
     def __dir__(self):
         attrs = frozenset.intersection(*[frozenset(dir(i)) for i in self.mp_items])
         return list(sorted(attrs | { 'mp_items', 'mp_len' } ))
@@ -126,7 +129,9 @@ def test():
     four.i = one.add(5).i
     assert four.i.mp_items == [ 15, 25, 35 ]
 
-    print ("TESTS SUCCEEDED")
+    assert four.i.mp_sort(reverse=True).mp_items == [ 35, 25, 15 ]
+
+    print ("TESTS SUCCEEDED") #pylint:disable=superfluous-parens
 
 if __name__ == '__main__':
     test()
