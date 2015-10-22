@@ -50,7 +50,7 @@ It's easier to show you:
     author_email='yans@yancomm.net',
     maintainer='Yan Shoshitaishvili',
     maintainer_email='yans@yancomm.net',
-    version='0.06',
+    version='0.07',
     license='GPL',
     py_modules=['mulpyplexer']
 )
