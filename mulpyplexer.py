@@ -75,7 +75,7 @@ class MP(object):
                 items |= set(i)
         return MP(list(items))
 
-    def mp_sort(self, cmp=None, key=None, reverse=False): #pylint:disable=redefined-builtin
+    def mp_sorted(self, cmp=None, key=None, reverse=False): #pylint:disable=redefined-builtin
         return MP(sorted(self.mp_items, cmp=cmp, key=key, reverse=reverse))
 
     def __dir__(self):
@@ -129,7 +129,7 @@ def test():
     four.i = one.add(5).i
     assert four.i.mp_items == [ 15, 25, 35 ]
 
-    assert four.i.mp_sort(reverse=True).mp_items == [ 35, 25, 15 ]
+    assert four.i.mp_sorted(reverse=True).mp_items == [ 35, 25, 15 ]
 
     print ("TESTS SUCCEEDED") #pylint:disable=superfluous-parens
 
