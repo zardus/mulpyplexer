@@ -78,6 +78,10 @@ class MP(object):
     def mp_sorted(self, cmp=None, key=None, reverse=False): #pylint:disable=redefined-builtin
         return MP(sorted(self.mp_items, cmp=cmp, key=key, reverse=reverse))
 
+    def mp_reduce(self, function, initial=None):
+        reduce_args = [ function, self.mp_items ] if initial is None else [ function, self.mp_items, initial ]
+        return reduce(*reduce_args)
+
     def __dir__(self):
         attrs = frozenset.intersection(*[frozenset(dir(i)) for i in self.mp_items])
         return list(sorted(attrs | { 'mp_items', 'mp_len' } ))
@@ -130,6 +134,9 @@ def test():
     assert four.i.mp_items == [ 15, 25, 35 ]
 
     assert four.i.mp_sorted(reverse=True).mp_items == [ 35, 25, 15 ]
+
+    import operator
+    assert four.i.mp_reduce(operator.__add__, initial=10) == 35 + 25 + 15 + 10
 
     print ("TESTS SUCCEEDED") #pylint:disable=superfluous-parens
 
