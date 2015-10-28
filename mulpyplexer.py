@@ -24,7 +24,7 @@ class MP(object):
         return expanded
 
     def __repr__(self):
-        return "<MP with %d items of types %s>" % (len(self.mp_items), '/'.join(frozenset(i.__class__.__name__ for i in self.mp_items)))
+        return "MP(%s)" % (self.mp_items,)
 
     #
     # Plex-throughs!
