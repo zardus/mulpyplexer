@@ -79,9 +79,11 @@ class MP(object):
                 items |= set(i)
         return MP(list(items))
 
+    @property
     def mp_first(self):
         return self.mp_items[0]
 
+    @property
     def mp_last(self):
         return self.mp_items[-1]
 
