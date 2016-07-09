@@ -52,6 +52,10 @@ class MP(object):
         values = self._expand(v)
         return MP([ i.__setitem__(k, v) for i,k,v in zip(self.mp_items,keys,values) ])
 
+    #
+    # Plexionality
+    #
+
     def mp_len(self):
         return [ len(i) for i in self.mp_items ]
 
@@ -75,6 +79,12 @@ class MP(object):
                 items |= set(i)
         return MP(list(items))
 
+    def mp_first(self):
+        return self.mp_items[0]
+
+    def mp_last(self):
+        return self.mp_items[-1]
+
     def mp_sorted(self, cmp=None, key=None, reverse=False): #pylint:disable=redefined-builtin
         return MP(sorted(self.mp_items, cmp=cmp, key=key, reverse=reverse))
 
@@ -84,7 +94,7 @@ class MP(object):
 
     def __dir__(self):
         attrs = frozenset.intersection(*[frozenset(dir(i)) for i in self.mp_items])
-        return list(sorted(attrs | { 'mp_items', 'mp_len', 'mp_map', 'mp_flatten', 'mp_union', 'mp_filter', 'mp_sorted', 'mp_reduce' } ))
+        return list(sorted(attrs | { 'mp_items', 'mp_len', 'mp_map', 'mp_flatten', 'mp_union', 'mp_filter', 'mp_sorted', 'mp_reduce', 'mp_first', 'mp_last' } ))
 
 def test():
     class A:
