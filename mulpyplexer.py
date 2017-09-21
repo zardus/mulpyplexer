@@ -1,3 +1,7 @@
+from __future__ import print_function
+
+from functools import reduce # pylint: disable=redefined-builtin
+
 class MP(object):
     def __init__(self, items):
         super(MP, self).__setattr__('mp_items', items)
@@ -87,8 +91,8 @@ class MP(object):
     def mp_last(self):
         return self.mp_items[-1]
 
-    def mp_sorted(self, cmp=None, key=None, reverse=False): #pylint:disable=redefined-builtin
-        return MP(sorted(self.mp_items, cmp=cmp, key=key, reverse=reverse))
+    def mp_sorted(self, key=None, reverse=False):
+        return MP(sorted(self.mp_items, key=key, reverse=reverse))
 
     def mp_reduce(self, function, initial=None):
         reduce_args = [ function, self.mp_items ] if initial is None else [ function, self.mp_items, initial ]
@@ -150,7 +154,7 @@ def test():
     import operator
     assert four.i.mp_reduce(operator.__add__, initial=10) == 35 + 25 + 15 + 10
 
-    print ("TESTS SUCCEEDED") #pylint:disable=superfluous-parens
+    print("TESTS SUCCEEDED")
 
 if __name__ == '__main__':
     test()
