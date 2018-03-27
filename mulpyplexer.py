@@ -103,7 +103,7 @@ class MP(object):
         return list(sorted(attrs | { 'mp_items', 'mp_len', 'mp_map', 'mp_flatten', 'mp_union', 'mp_filter', 'mp_sorted', 'mp_reduce', 'mp_first', 'mp_last' } ))
 
 def test():
-    class A:
+    class A(object):
         def __init__(self, i, h=None):
             self.i = i
             self.h = [] if h is None else h + [i]
